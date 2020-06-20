@@ -4,7 +4,7 @@ import { FlexboxGrid, Button } from 'rsuite';
 
 export default function Home() {
   return (
-    <div>
+    <div className='container'>
       <Head>
         <title>Score board</title>
         <link rel='icon' href='/favicon.ico' />
