@@ -9,7 +9,6 @@ function MatchNumber() {
     <div>
       <Head>
         <title>Match {matchNumber}</title>
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>

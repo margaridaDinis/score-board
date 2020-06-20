@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Router from 'next/router';
 import {
+  Alert,
   Panel,
   Form,
   FormGroup,
@@ -32,9 +33,17 @@ function NewPlayer() {
     } catch (error) {
       const { data } = error.response;
 
-      data.errors.map((error) =>
-        setErrors((prevErrors) => ({ ...prevErrors, [error.id]: error.title }))
-      );
+      if (data.errors) {
+        data.errors.map((error) =>
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [error.id]: error.title,
+          }))
+        );
+      }
+
+      Alert.error('Oh no! Something went wrong!');
+
       setLoading(false);
     }
   };
@@ -43,7 +52,6 @@ function NewPlayer() {
     <div>
       <Head>
         <title>New Player</title>
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
