@@ -65,15 +65,16 @@ function NewGame({ players }) {
                 <FormGroup>
                   <ControlLabel>Choose player 1</ControlLabel>
                   <FormControl
-                    name='playerId'
+                    name='player1Id'
                     accepter={SelectPicker}
                     data={players}
+                    value={values.player1Id}
                     onChange={(value) =>
-                      setValues({ ...values, playerId: value })
+                      setValues({ ...values, player1Id: value })
                     }
                     labelKey='name'
                     valueKey='id'
-                    errorMessage={errors.playerId}
+                    errorMessage={errors.player1Id}
                     errorPlacement='bottomStart'
                     disabled={loading}
                   />
