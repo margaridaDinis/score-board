@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Loader, Button } from 'rsuite';
+import { Loader } from 'rsuite';
 import { useEffect, useState } from 'react';
 import useGame from '../../../hooks/useGame';
 import api from '../../../utils/api';
+import MatchActions from '../../../components/molecules/matchActions';
+import MatchScore from '../../../components/molecules/MatchScore';
+import PlayerRound from '../../../components/molecules/PlayerRound';
 
 function MatchNumber() {
   const router = useRouter();
@@ -24,8 +27,6 @@ function MatchNumber() {
   }, [results]);
 
   if (!game) return <Loader />;
-
-  const numberOfTriesArray = Array(game.numberOfTries).fill(null);
 
   const handleEndOfMatch = async () => {
     const scoreToSubmit = Object.fromEntries(
@@ -84,42 +85,23 @@ function MatchNumber() {
           Match {matchNumber} of {game.numberOfMatches}
         </h1>
 
-        <h1>{score.join(' x ')}</h1>
-        <small>{game.players.map(({ name }) => name)}</small>
+        <MatchScore score={score} players={game.players} />
         {game.players.map((player, playerIndex) => (
-          <div
+          <PlayerRound
             key={player.id}
-            style={{ opacity: currentPlayerIndex !== playerIndex ? 0.5 : 1 }}
-          >
-            {player.name}
-            <div>
-              {numberOfTriesArray.map((currentTry, i) => (
-                <span
-                  key={i}
-                  style={{
-                    color:
-                      currentPlayerIndex === playerIndex &&
-                      currentTryNumber === i + 1
-                        ? 'red'
-                        : 'black',
-                  }}
-                >
-                  Item {i} {String(results[playerIndex][i])} {'  | '}
-                </span>
-              ))}
-            </div>
-          </div>
+            player={player}
+            isCurrentPlayer={playerIndex === currentPlayerIndex}
+            playerResults={results[playerIndex]}
+            currentTryNumber={currentTryNumber}
+            {...game}
+          />
         ))}
         {currentPlayerIndex >= 0 && (
-          <div>
-            <h1>
-              {game.players[currentPlayerIndex].name}&apos;s #{currentTryNumber}{' '}
-              throw
-            </h1>
-
-            <Button onClick={() => setThrowResult(false)}>x</Button>
-            <Button onClick={() => setThrowResult(true)}>v</Button>
-          </div>
+          <MatchActions
+            currentTryNumber={currentTryNumber}
+            playerName={game.players[currentPlayerIndex].name}
+            setThrowResult={setThrowResult}
+          />
         )}
       </main>
 
