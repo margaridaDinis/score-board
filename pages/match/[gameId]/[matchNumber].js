@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { FlexboxGrid, Loader } from 'rsuite';
+import Router, { useRouter } from 'next/router';
+import { Alert, Divider, FlexboxGrid, Loader, Steps } from 'rsuite';
 import { useEffect, useState } from 'react';
 import useGame from '../../../hooks/useGame';
 import api from '../../../utils/api';
@@ -10,7 +10,8 @@ import PlayerRound from '../../../components/molecules/PlayerRound';
 
 function MatchNumber() {
   const router = useRouter();
-  const { matchNumber, gameId } = router.query;
+  const { gameId } = router.query;
+  const matchNumber = parseInt(router.query.matchNumber, 10);
   const game = useGame({ gameId });
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -35,11 +36,13 @@ function MatchNumber() {
 
     try {
       const data = { data: { attributes: { ...scoreToSubmit, gameId } } };
-      const match = await api.post('/matches', data);
+      const { data: match } = await api.post('/matches', data);
 
-      console.log(match.data);
+      if (match.game.isOver) return Router.replace('/');
+
+      Router.replace(`/match/${gameId}/${matchNumber + 1}`);
     } catch (e) {
-      console.error(e);
+      Alert.error('Oh no! Something went wrong!');
     }
   };
 
@@ -73,43 +76,65 @@ function MatchNumber() {
   };
 
   return (
-    <div>
+    <main>
       <Head>
         <title>
           Match {matchNumber} of {game.numberOfMatches}
         </title>
       </Head>
 
-      <main>
-        <FlexboxGrid justify='center'>
-          <FlexboxGrid.Item>
-            <h1>
-              Match {matchNumber} of {game.numberOfMatches}
-              {/*  TODO add steps */}
-            </h1>
+      <FlexboxGrid justify='center'>
+        <FlexboxGrid.Item colspan={12}>
+          <Steps current={matchNumber - 1}>
+            {Array(game.numberOfMatches)
+              .fill(null)
+              .map((_, i) => (
+                <Steps.Item
+                  key={i}
+                  title={
+                    game.matches[i]
+                      ? `${game.matches[i].scorePlayer1} x ${game.matches[i].scorePlayer2}`
+                      : ''
+                  }
+                />
+              ))}
+          </Steps>
 
-            <MatchScore score={score} players={game.players} />
-            {game.players.map((player, playerIndex) => (
-              <PlayerRound
-                key={player.id}
-                player={player}
-                isCurrentPlayer={playerIndex === currentPlayerIndex}
-                playerResults={results[playerIndex]}
-                currentTryNumber={currentTryNumber}
-                {...game}
-              />
-            ))}
-            {currentPlayerIndex >= 0 && (
-              <MatchActions
-                currentTryNumber={currentTryNumber}
-                playerName={game.players[currentPlayerIndex].name}
-                setThrowResult={setThrowResult}
-              />
-            )}
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
-      </main>
-    </div>
+          <p className='match__title alignCenter'>
+            Match {matchNumber} of {game.numberOfMatches}
+          </p>
+          <MatchScore score={score} players={game.players} />
+
+          <Divider />
+          {game.players.map((player, playerIndex) => (
+            <PlayerRound
+              key={player.id}
+              player={player}
+              isCurrentPlayer={playerIndex === currentPlayerIndex}
+              playerResults={results[playerIndex]}
+              currentTryNumber={currentTryNumber}
+              {...game}
+            />
+          ))}
+          {currentPlayerIndex >= 0 && (
+            <MatchActions
+              currentTryNumber={currentTryNumber}
+              playerName={game.players[currentPlayerIndex].name}
+              setThrowResult={setThrowResult}
+            />
+          )}
+        </FlexboxGrid.Item>
+      </FlexboxGrid>
+
+      <style jsx>
+        {`
+          .match__title {
+            padding-top: 2rem;
+            text-transform: uppercase;
+          }
+        `}
+      </style>
+    </main>
   );
 }
 

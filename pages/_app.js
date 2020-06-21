@@ -26,6 +26,10 @@ function App({ Component, pageProps }) {
           main {
             padding: 1rem;
           }
+
+          .alignCenter {
+            text-align: center;
+          }
         `}
       </style>
     </>

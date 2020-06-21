@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, FlexboxGrid, Icon } from 'rsuite';
+import { FlexboxGrid, Icon } from 'rsuite';
 
 const MatchScore = ({ score, players }) => {
   const [player1Score, player2Score] = score;
@@ -8,12 +8,12 @@ const MatchScore = ({ score, players }) => {
 
   return (
     <div className='match-score'>
-      <Divider />
-
-      <FlexboxGrid justify='center' align='center'>
+      <FlexboxGrid justify='center' align='middle'>
         <FlexboxGrid.Item className='col'>
-          <h1 className='match-score__score'>{player1Score}</h1>
-          <small className='match-score__player'>{player1.name}</small>
+          <h1 className='match-score__score alignCenter'>{player1Score}</h1>
+          <small className='match-score__player alignCenter'>
+            {player1.name}
+          </small>
         </FlexboxGrid.Item>
         <FlexboxGrid.Item className='col' colspan={4}>
           <div className='match-score__divider'>
@@ -21,24 +21,21 @@ const MatchScore = ({ score, players }) => {
           </div>
         </FlexboxGrid.Item>
         <FlexboxGrid.Item className='col'>
-          <h1 className='match-score__score'>{player2Score}</h1>
-          <small className='match-score__player'>{player2.name}</small>
+          <h1 className='match-score__score alignCenter'>{player2Score}</h1>
+          <small className='match-score__player alignCenter'>
+            {player2.name}
+          </small>
         </FlexboxGrid.Item>
       </FlexboxGrid>
-      <Divider />
 
       <style jsx>
         {`
           .match-score {
-            padding: 1rem 0;
-          }
-
-          .match-score__score {
-            text-align: center;
+            padding-top: 1rem;
           }
 
           .match-score__player {
-            text-align: center;
+            font-size: 0.75rem;
             text-transform: uppercase;
             color: grey;
           }
