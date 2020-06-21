@@ -39,7 +39,7 @@ function MatchNumber() {
       const data = { data: { attributes: { ...scoreToSubmit, gameId } } };
       const { data: match } = await api.post('/matches', data);
 
-      if (match.game.isOver) return Router.replace('/');
+      if (match.game.isOver) return Router.replace(`/game/${gameId}`);
 
       Router.replace(`/match/${gameId}/${matchNumber + 1}`);
     } catch (e) {
