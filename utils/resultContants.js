@@ -6,8 +6,8 @@ export const CURRENT = 'current';
 export const ICON = {
   [SCORED]: 'dot-circle-o',
   [MISSED]: 'circle-o',
-  [NOT_PLAYED]: 'circle',
-  [CURRENT]: 'question-circle',
+  [NOT_PLAYED]: 'circle-thin',
+  [CURRENT]: 'circle',
 };
 
 export const COLOR = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlexboxGrid, Icon } from 'rsuite';
-import { COLOR, ICON } from '../../utils/resultContants';
+import { Icon, Steps } from 'rsuite';
+import { ICON } from '../../utils/resultContants';
 import getResultStatus from '../../utils/getResultStatus';
 
 const PlayerRound = ({
@@ -13,7 +13,7 @@ const PlayerRound = ({
 }) => {
   const numberOfTriesArray = Array(numberOfTries).fill(null);
 
-  const renderResult = (i) => {
+  const renderIcon = (i) => {
     const isCurrent = isCurrentPlayer && currentTryNumber === i + 1;
     const result = playerResults[i];
     const status = getResultStatus({ isCurrent, result });
@@ -21,9 +21,8 @@ const PlayerRound = ({
     return (
       <Icon
         icon={ICON[status]}
-        style={{ color: COLOR[status] }}
         className='player-round__result'
-        size='3x'
+        size='2x'
         spin={isCurrent}
       />
     );
@@ -35,13 +34,11 @@ const PlayerRound = ({
       style={{ opacity: !isCurrentPlayer ? 0.5 : 1 }}
     >
       <p className='player-round__player'>{player.name}</p>
-      <FlexboxGrid justify='space-between'>
+      <Steps current={isCurrentPlayer ? currentTryNumber - 1 : -1}>
         {numberOfTriesArray.map((currentTry, i) => (
-          <FlexboxGrid.Item key={i} justify='center'>
-            {renderResult(i)}
-          </FlexboxGrid.Item>
+          <Steps.Item key={i} icon={renderIcon(i)} />
         ))}
-      </FlexboxGrid>
+      </Steps>
       <style jsx>
         {`
           .player-round {

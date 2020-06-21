@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import Router, { useRouter } from 'next/router';
-import { Alert, Divider, FlexboxGrid, Loader, Steps } from 'rsuite';
+import { Alert, Divider, FlexboxGrid, Loader } from 'rsuite';
 import { useEffect, useState } from 'react';
 import useGame from '../../../hooks/useGame';
 import api from '../../../utils/api';
 import MatchActions from '../../../components/molecules/MatchActions';
 import MatchScore from '../../../components/molecules/MatchScore';
 import PlayerRound from '../../../components/molecules/PlayerRound';
+import MatchSteps from '../../../components/molecules/MatchSteps';
 
 function MatchNumber() {
   const router = useRouter();
@@ -85,21 +86,7 @@ function MatchNumber() {
 
       <FlexboxGrid justify='center'>
         <FlexboxGrid.Item colspan={12}>
-          <Steps current={matchNumber - 1}>
-            {Array(game.numberOfMatches)
-              .fill(null)
-              .map((_, i) => (
-                <Steps.Item
-                  key={i}
-                  title={
-                    game.matches[i]
-                      ? `${game.matches[i].scorePlayer1} x ${game.matches[i].scorePlayer2}`
-                      : ''
-                  }
-                />
-              ))}
-          </Steps>
-
+          <MatchSteps matchIndex={matchNumber - 1} {...game} />
           <p className='match__title alignCenter'>
             Match {matchNumber} of {game.numberOfMatches}
           </p>
