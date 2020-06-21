@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Loader } from 'rsuite';
+import { FlexboxGrid, Loader } from 'rsuite';
 import { useEffect, useState } from 'react';
 import useGame from '../../../hooks/useGame';
 import api from '../../../utils/api';
-import MatchActions from '../../../components/molecules/matchActions';
+import MatchActions from '../../../components/molecules/MatchActions';
 import MatchScore from '../../../components/molecules/MatchScore';
 import PlayerRound from '../../../components/molecules/PlayerRound';
 
@@ -81,37 +81,34 @@ function MatchNumber() {
       </Head>
 
       <main>
-        <h1>
-          Match {matchNumber} of {game.numberOfMatches}
-        </h1>
+        <FlexboxGrid justify='center'>
+          <FlexboxGrid.Item>
+            <h1>
+              Match {matchNumber} of {game.numberOfMatches}
+              {/*  TODO add steps */}
+            </h1>
 
-        <MatchScore score={score} players={game.players} />
-        {game.players.map((player, playerIndex) => (
-          <PlayerRound
-            key={player.id}
-            player={player}
-            isCurrentPlayer={playerIndex === currentPlayerIndex}
-            playerResults={results[playerIndex]}
-            currentTryNumber={currentTryNumber}
-            {...game}
-          />
-        ))}
-        {currentPlayerIndex >= 0 && (
-          <MatchActions
-            currentTryNumber={currentTryNumber}
-            playerName={game.players[currentPlayerIndex].name}
-            setThrowResult={setThrowResult}
-          />
-        )}
+            <MatchScore score={score} players={game.players} />
+            {game.players.map((player, playerIndex) => (
+              <PlayerRound
+                key={player.id}
+                player={player}
+                isCurrentPlayer={playerIndex === currentPlayerIndex}
+                playerResults={results[playerIndex]}
+                currentTryNumber={currentTryNumber}
+                {...game}
+              />
+            ))}
+            {currentPlayerIndex >= 0 && (
+              <MatchActions
+                currentTryNumber={currentTryNumber}
+                playerName={game.players[currentPlayerIndex].name}
+                setThrowResult={setThrowResult}
+              />
+            )}
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
       </main>
-
-      <style jsx>
-        {`
-          h1 {
-            padding-bottom: 1rem;
-          }
-        `}
-      </style>
     </div>
   );
 }
