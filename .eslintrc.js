@@ -21,5 +21,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'jsx-quotes': [2, 'prefer-single'],
+    'no-console': 'error',
   },
 };
