@@ -11,8 +11,6 @@ import {
   ControlLabel,
   ButtonToolbar,
   Button,
-  FlexboxGrid,
-  Col,
 } from 'rsuite';
 import api from '../utils/api';
 
@@ -56,46 +54,42 @@ function NewPlayer() {
       </Head>
 
       <main>
-        <FlexboxGrid justify='center'>
-          <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
-            <Panel>
-              <h1>New Player</h1>
-              <Form onSubmit={handleCreatePlayer}>
-                <FormGroup>
-                  <ControlLabel>Name</ControlLabel>
-                  <FormControl
-                    name='name'
-                    value={name}
-                    onChange={setName}
-                    errorMessage={errors.name}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Email</ControlLabel>
-                  <FormControl
-                    name='email'
-                    type='email'
-                    value={email}
-                    onChange={setEmail}
-                    errorMessage={errors.email}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                  />
-                </FormGroup>
-                <ButtonToolbar>
-                  <Button appearance='primary' type='submit' loading={loading}>
-                    Create player
-                  </Button>
-                  <Link href='/'>
-                    <Button appearance='default'>Cancel</Button>
-                  </Link>
-                </ButtonToolbar>
-              </Form>
-            </Panel>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+        <Panel>
+          <h1>New Player</h1>
+          <Form onSubmit={handleCreatePlayer}>
+            <FormGroup>
+              <ControlLabel>Name</ControlLabel>
+              <FormControl
+                name='name'
+                value={name}
+                onChange={setName}
+                errorMessage={errors.name}
+                errorPlacement='bottomStart'
+                disabled={loading}
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Email</ControlLabel>
+              <FormControl
+                name='email'
+                type='email'
+                value={email}
+                onChange={setEmail}
+                errorMessage={errors.email}
+                errorPlacement='bottomStart'
+                disabled={loading}
+              />
+            </FormGroup>
+            <ButtonToolbar>
+              <Button appearance='primary' type='submit' loading={loading}>
+                Create player
+              </Button>
+              <Link href='/'>
+                <Button appearance='default'>Cancel</Button>
+              </Link>
+            </ButtonToolbar>
+          </Form>
+        </Panel>
       </main>
 
       <style jsx>

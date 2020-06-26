@@ -1,6 +1,7 @@
 import 'rsuite/lib/styles/index.less';
 import Head from 'next/head';
 import NavigationHeader from '../components/molecules/Navbar';
+import { FlexboxGrid, Col } from 'rsuite';
 
 // eslint-disable-next-line react/prop-types
 function App({ Component, pageProps }) {
@@ -14,9 +15,14 @@ function App({ Component, pageProps }) {
           content='width=device-width, initial-scale=1, maximum-scale=1'
         />
       </Head>
+
       <NavigationHeader />
 
-      <Component {...pageProps} />
+      <FlexboxGrid justify='center'>
+        <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
+          <Component {...pageProps} />
+        </FlexboxGrid.Item>
+      </FlexboxGrid>
 
       <style jsx>
         {`

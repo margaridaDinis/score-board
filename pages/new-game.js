@@ -12,8 +12,6 @@ import {
   ControlLabel,
   ButtonToolbar,
   Button,
-  FlexboxGrid,
-  Col,
   Alert,
 } from 'rsuite';
 import api from '../utils/api';
@@ -58,89 +56,81 @@ function NewGame({ players }) {
         <title>New Game</title>
       </Head>
       <main>
-        <FlexboxGrid justify='center'>
-          <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
-            <Panel>
-              <h1>New Game</h1>
-              <Form onSubmit={handleNewGame} fluid>
-                <FormGroup>
-                  <ControlLabel>Choose player 1</ControlLabel>
-                  <FormControl
-                    name='player1Id'
-                    accepter={SelectPicker}
-                    data={players}
-                    value={values.player1Id}
-                    onChange={(value) =>
-                      setValues({ ...values, player1Id: value })
-                    }
-                    labelKey='name'
-                    valueKey='id'
-                    errorMessage={errors.player1}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                    block
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Choose player 2</ControlLabel>
-                  <FormControl
-                    name='player2Id'
-                    accepter={SelectPicker}
-                    data={players}
-                    value={values.player2}
-                    onChange={(value) =>
-                      setValues({ ...values, player2Id: value })
-                    }
-                    labelKey='name'
-                    valueKey='id'
-                    errorMessage={errors.player2}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                    block
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Best of</ControlLabel>
-                  <FormControl
-                    name='numberOfMatches'
-                    type='number'
-                    value={values.numberOfMatches}
-                    onChange={(value) =>
-                      setValues({ ...values, numberOfMatches: value })
-                    }
-                    min={1}
-                    errorMessage={errors.numberOfMatches}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Number of free throws</ControlLabel>
-                  <FormControl
-                    name='numberOfTries'
-                    type='number'
-                    value={values.numberOfTries}
-                    onChange={(value) =>
-                      setValues({ ...values, numberOfTries: value })
-                    }
-                    min={1}
-                    errorMessage={errors.numberOfTries}
-                    errorPlacement='bottomStart'
-                    disabled={loading}
-                  />
-                </FormGroup>
-                <ButtonToolbar>
-                  <Button appearance='primary' type='submit' loading={loading}>
-                    Start!
-                  </Button>
-                  <Link href='/'>
-                    <Button appearance='default'>Cancel</Button>
-                  </Link>
-                </ButtonToolbar>
-              </Form>
-            </Panel>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+        <Panel>
+          <h1>New Game</h1>
+          <Form onSubmit={handleNewGame} fluid>
+            <FormGroup>
+              <ControlLabel>Choose player 1</ControlLabel>
+              <FormControl
+                name='player1Id'
+                accepter={SelectPicker}
+                data={players}
+                value={values.player1Id}
+                onChange={(value) => setValues({ ...values, player1Id: value })}
+                labelKey='name'
+                valueKey='id'
+                errorMessage={errors.player1}
+                errorPlacement='bottomStart'
+                disabled={loading}
+                block
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Choose player 2</ControlLabel>
+              <FormControl
+                name='player2Id'
+                accepter={SelectPicker}
+                data={players}
+                value={values.player2}
+                onChange={(value) => setValues({ ...values, player2Id: value })}
+                labelKey='name'
+                valueKey='id'
+                errorMessage={errors.player2}
+                errorPlacement='bottomStart'
+                disabled={loading}
+                block
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Best of</ControlLabel>
+              <FormControl
+                name='numberOfMatches'
+                type='number'
+                value={values.numberOfMatches}
+                onChange={(value) =>
+                  setValues({ ...values, numberOfMatches: value })
+                }
+                min={1}
+                errorMessage={errors.numberOfMatches}
+                errorPlacement='bottomStart'
+                disabled={loading}
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Number of free throws</ControlLabel>
+              <FormControl
+                name='numberOfTries'
+                type='number'
+                value={values.numberOfTries}
+                onChange={(value) =>
+                  setValues({ ...values, numberOfTries: value })
+                }
+                min={1}
+                errorMessage={errors.numberOfTries}
+                errorPlacement='bottomStart'
+                disabled={loading}
+              />
+            </FormGroup>
+            <ButtonToolbar>
+              <Button appearance='primary' type='submit' loading={loading}>
+                Start!
+              </Button>
+              <Link href='/'>
+                <Button appearance='default'>Cancel</Button>
+              </Link>
+            </ButtonToolbar>
+          </Form>
+        </Panel>
       </main>
 
       <style jsx>
