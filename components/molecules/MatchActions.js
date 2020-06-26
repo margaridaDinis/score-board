@@ -11,9 +11,9 @@ const MatchActions = ({ playerName, currentTryNumber, setThrowResult }) => {
       <Divider />
       <article>
         <header>
-          <h1>
-            {playerName}&apos;s #{currentTryNumber} throw
-          </h1>
+          <p className='match-actions__player text-uppercase'>
+            <b>{playerName}</b> playing
+          </p>
         </header>
 
         <FlexboxGrid justify='space-around'>
@@ -36,15 +36,20 @@ const MatchActions = ({ playerName, currentTryNumber, setThrowResult }) => {
             />
           </FlexboxGrid.Item>
         </FlexboxGrid>
+        <footer>
+          <p className='match-actions__turn align-center text-uppercase'>
+            #{currentTryNumber} turn
+          </p>
+        </footer>
       </article>
-      <Divider />
       <style jsx>
         {`
-          header {
-            text-align: center;
-          }
-          h1 {
+          .match-actions__player {
             padding-bottom: 2rem;
+          }
+
+          .match-actions__turn {
+            padding-top: 2rem;
           }
         `}
       </style>

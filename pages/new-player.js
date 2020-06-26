@@ -12,6 +12,7 @@ import {
   ButtonToolbar,
   Button,
   FlexboxGrid,
+  Col,
 } from 'rsuite';
 import api from '../utils/api';
 
@@ -56,7 +57,7 @@ function NewPlayer() {
 
       <main>
         <FlexboxGrid justify='center'>
-          <FlexboxGrid.Item>
+          <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
             <Panel>
               <h1>New Player</h1>
               <Form onSubmit={handleCreatePlayer}>

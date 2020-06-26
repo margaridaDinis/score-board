@@ -13,6 +13,7 @@ import {
   ButtonToolbar,
   Button,
   FlexboxGrid,
+  Col,
   Alert,
 } from 'rsuite';
 import api from '../utils/api';
@@ -58,10 +59,10 @@ function NewGame({ players }) {
       </Head>
       <main>
         <FlexboxGrid justify='center'>
-          <FlexboxGrid.Item>
+          <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
             <Panel>
               <h1>New Game</h1>
-              <Form onSubmit={handleNewGame}>
+              <Form onSubmit={handleNewGame} fluid>
                 <FormGroup>
                   <ControlLabel>Choose player 1</ControlLabel>
                   <FormControl
@@ -74,9 +75,10 @@ function NewGame({ players }) {
                     }
                     labelKey='name'
                     valueKey='id'
-                    errorMessage={errors.player1Id}
+                    errorMessage={errors.player1}
                     errorPlacement='bottomStart'
                     disabled={loading}
+                    block
                   />
                 </FormGroup>
                 <FormGroup>
@@ -85,15 +87,16 @@ function NewGame({ players }) {
                     name='player2Id'
                     accepter={SelectPicker}
                     data={players}
-                    value={values.player2Id}
+                    value={values.player2}
                     onChange={(value) =>
                       setValues({ ...values, player2Id: value })
                     }
                     labelKey='name'
                     valueKey='id'
-                    errorMessage={errors.player2Id}
+                    errorMessage={errors.player2}
                     errorPlacement='bottomStart'
                     disabled={loading}
+                    block
                   />
                 </FormGroup>
                 <FormGroup>

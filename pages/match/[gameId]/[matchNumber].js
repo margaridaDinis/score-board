@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Router, { useRouter } from 'next/router';
-import { Alert, Divider, FlexboxGrid, Loader } from 'rsuite';
+import { Alert, Col, Divider, FlexboxGrid, Loader } from 'rsuite';
 import { useEffect, useState } from 'react';
 import useGame from '../../../hooks/useGame';
 import api from '../../../utils/api';
@@ -85,9 +85,9 @@ function MatchNumber() {
       </Head>
 
       <FlexboxGrid justify='center'>
-        <FlexboxGrid.Item colspan={12}>
+        <FlexboxGrid.Item componentClass={Col} xs={24} md={8}>
           <MatchSteps matchIndex={matchNumber - 1} {...game} />
-          <p className='match__title alignCenter'>
+          <p className='match__title align-center text-uppercase'>
             Match {matchNumber} of {game.numberOfMatches}
           </p>
           <MatchScore score={score} players={game.players} />
@@ -117,7 +117,6 @@ function MatchNumber() {
         {`
           .match__title {
             padding-top: 2rem;
-            text-transform: uppercase;
           }
         `}
       </style>

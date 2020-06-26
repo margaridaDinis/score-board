@@ -12,7 +12,7 @@ const Game = ({ game }) => {
 
 Game.propTypes = {
   game: PropTypes.object,
-}
+};
 
 export async function getStaticPaths() {
   const res = await api('/games');
@@ -30,4 +30,3 @@ export async function getStaticProps({ params }) {
 }
 
 export default Game;
-
