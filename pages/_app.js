@@ -1,5 +1,6 @@
 import 'rsuite/lib/styles/index.less';
 import Head from 'next/head';
+import NavigationHeader from '../components/molecules/Navbar';
 
 // eslint-disable-next-line react/prop-types
 function App({ Component, pageProps }) {
@@ -13,7 +14,18 @@ function App({ Component, pageProps }) {
           content='width=device-width, initial-scale=1, maximum-scale=1'
         />
       </Head>
+      <NavigationHeader />
+
       <Component {...pageProps} />
+
+      <style jsx>
+        {`
+          .navbar-brand {
+            padding: 18px 20px;
+            display: inline-block;
+          }
+        `}
+      </style>
       <style jsx global>
         {`
           html,
