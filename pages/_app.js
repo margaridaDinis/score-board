@@ -8,6 +8,10 @@ function App({ Component, pageProps }) {
       <Head>
         <title>Score Board</title>
         <link rel='icon' href='/favicon.ico' />
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1, maximum-scale=1'
+        />
       </Head>
       <Component {...pageProps} />
       <style jsx global>
@@ -27,8 +31,12 @@ function App({ Component, pageProps }) {
             padding: 1rem;
           }
 
-          .alignCenter {
+          .align-center {
             text-align: center;
+          }
+
+          .text-uppercase {
+            text-transform: uppercase;
           }
         `}
       </style>

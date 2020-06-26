@@ -10,8 +10,8 @@ const MatchScore = ({ score, players }) => {
     <div className='match-score'>
       <FlexboxGrid justify='center' align='middle'>
         <FlexboxGrid.Item className='col'>
-          <h1 className='match-score__score alignCenter'>{player1Score}</h1>
-          <small className='match-score__player alignCenter'>
+          <h1 className='match-score__score align-center'>{player1Score}</h1>
+          <small className='match-score__player align-center text-uppercase'>
             {player1.name}
           </small>
         </FlexboxGrid.Item>
@@ -21,8 +21,8 @@ const MatchScore = ({ score, players }) => {
           </div>
         </FlexboxGrid.Item>
         <FlexboxGrid.Item className='col'>
-          <h1 className='match-score__score alignCenter'>{player2Score}</h1>
-          <small className='match-score__player alignCenter'>
+          <h1 className='match-score__score align-center'>{player2Score}</h1>
+          <small className='match-score__player align-center text-uppercase'>
             {player2.name}
           </small>
         </FlexboxGrid.Item>
@@ -36,7 +36,6 @@ const MatchScore = ({ score, players }) => {
 
           .match-score__player {
             font-size: 0.75rem;
-            text-transform: uppercase;
             color: grey;
           }
 
