@@ -10,9 +10,6 @@ export default function Home() {
       </Head>
 
       <main>
-        <Link href='/new-player'>
-          <Button size='lg'>New Player</Button>
-        </Link>
         <div className='main-wrapper'>
           <FlexboxGrid justify='center'>
             <FlexboxGrid.Item>
@@ -27,7 +24,7 @@ export default function Home() {
       <style jsx>
         {`
           .main-wrapper {
-            padding: 5rem 0;
+            padding-top: 5rem;
           }
 
           .new-game-button {
