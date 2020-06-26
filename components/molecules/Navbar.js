@@ -13,7 +13,7 @@ function NavigationHeader() {
         </Navbar.Header>
         <Navbar.Body>
           <Nav pullRight>
-            <Nav.Item icon={<Icon icon="user" />}>New player</Nav.Item>
+            <Nav.Item icon={<Icon icon='user' />}>New player</Nav.Item>
           </Nav>
         </Navbar.Body>
       </Navbar>

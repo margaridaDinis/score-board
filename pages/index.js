@@ -1,8 +1,11 @@
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FlexboxGrid, Button } from 'rsuite';
+import { FlexboxGrid } from 'rsuite';
+import GameHistory from '../components/organisms/GameHistory';
+import api from '../utils/api';
 
-export default function Home() {
+function Home({ games }) {
   return (
     <div>
       <Head>
@@ -19,12 +22,13 @@ export default function Home() {
             </FlexboxGrid.Item>
           </FlexboxGrid>
         </div>
+        <GameHistory games={games} />
       </main>
 
       <style jsx>
         {`
           .main-wrapper {
-            padding-top: 5rem;
+            padding: 5rem 0;
           }
 
           .new-game-button {
@@ -39,3 +43,15 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  const res = await api.get('/games');
+
+  return { props: { games: res.data } };
+}
+
+Home.propTypes = {
+  games: PropTypes.array,
+};
+
+export default Home;
