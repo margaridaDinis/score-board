@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint:js": "eslint ./components/** ./pages/**"
+    "lint:js": "eslint ./components/** ./pages/**",
+    "test": "jest"
   },
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
@@ -19,6 +20,7 @@
     "rsuite": "^4.7.5"
   },
   "devDependencies": {
+    "@testing-library/react": "^10.4.3",
     "eslint": "^7.3.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -27,6 +29,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "jest": "^26.1.0",
     "prettier": "^2.0.5"
   }
 }
