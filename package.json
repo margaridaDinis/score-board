@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint:js": "eslint ./components/** ./pages/**"
+    "lint:js": "eslint ./components/** ./pages/**",
+    "export": "yarn build && next export"
   },
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
