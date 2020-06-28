@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Timeline, Icon } from 'rsuite';
+import Link from 'next/link';
 
 const formatDate = (createdAt) => {
   const date = new Date(createdAt);
@@ -16,14 +17,18 @@ const GameHistory = ({ games }) => {
     <Timeline align='alternate' endless>
       {games.map((game) => (
         <Timeline.Item key={game.id}>
-          <small>{formatDate(game.createdAt)}</small>
-          <p>
-            {game.player1.name} x {game.player2.name}
-          </p>
-          <small>
-            <Icon icon='trophy' style={{ color: '#FFC107' }} />{' '}
-            {game.player1.name}
-          </small>
+          <Link href={`/game/${game.id}`}>
+            <a style={{ color: 'black' }}>
+              <small>{formatDate(game.createdAt)}</small>
+              <p>
+                {game.player1.name} x {game.player2.name}
+              </p>
+              <small>
+                <Icon icon='trophy' style={{ color: '#FFC107' }} />{' '}
+                {game.player1.name}
+              </small>
+            </a>
+          </Link>
         </Timeline.Item>
       ))}
     </Timeline>
