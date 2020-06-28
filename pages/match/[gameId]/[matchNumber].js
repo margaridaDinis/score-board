@@ -21,6 +21,10 @@ function MatchNumber() {
   const [score, setScore] = useState([]);
 
   useEffect(() => {
+    if (game && game.isOver) Router.replace(`/game/${gameId}`);
+  }, [game]);
+
+  useEffect(() => {
     const score = Object.values(results).map(
       (playerResults) => playerResults.filter(Boolean).length
     );
@@ -28,7 +32,23 @@ function MatchNumber() {
     setScore(score);
   }, [results]);
 
-  if (!game) return <Loader />;
+  if (!game || game.isOver) {
+    return (
+      <div className='loader'>
+        <Loader size='lg' />
+        <style jsx>
+          {`
+            .loader {
+              height: 100vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          `}
+        </style>
+      </div>
+    );
+  }
 
   const handleEndOfMatch = async () => {
     const scoreToSubmit = Object.fromEntries(
@@ -111,6 +131,12 @@ function MatchNumber() {
 
       <style jsx>
         {`
+          .match__loader {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
           .match__title {
             padding-top: 2rem;
           }

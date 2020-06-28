@@ -17,6 +17,11 @@ module.exports = {
   },
   plugins: ['react'],
   ignorePatterns: ['node_module', 'coverage'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',

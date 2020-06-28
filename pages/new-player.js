@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
-import Router from 'next/router';
 import {
   Alert,
   Panel,
@@ -28,7 +27,9 @@ function NewPlayer() {
 
     try {
       await api.post('/players', data);
-      Router.push('/');
+      Alert.success(`New player ${name} created!`);
+      setName('');
+      setEmail('');
     } catch (error) {
       const { data } = error.response;
 
@@ -42,7 +43,7 @@ function NewPlayer() {
       }
 
       Alert.error('Oh no! Something went wrong!');
-
+    } finally {
       setLoading(false);
     }
   };

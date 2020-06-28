@@ -9,6 +9,7 @@ const Game = ({ game, players }) => {
 
   const matchWinnerIndexes = useRef([]);
   const [gameWinner, setGameWinner] = useState();
+  const [finalScore, setFinalScore] = useState([]);
 
   useEffect(() => {
     matchWinnerIndexes.current = game.matches.map(
@@ -22,32 +23,30 @@ const Game = ({ game, players }) => {
   }, []);
 
   useEffect(() => {
-    matchWinnerIndexes.current = game.matches.map(
-      ({ scorePlayer1, scorePlayer2 }) => {
-        if (scorePlayer1 > scorePlayer2) return 0;
-        if (scorePlayer1 < scorePlayer2) return 1;
-
-        return -1;
-      }
-    );
-
     const getNumberOfMatchesWon = (playerIndex) =>
       matchWinnerIndexes.current.filter(
         (winnerIndex) => winnerIndex === playerIndex
       ).length;
 
+    const gamesWonByPlayer1 = getNumberOfMatchesWon(0);
+    const gamesWonByPlayer2 = getNumberOfMatchesWon(1);
+
+    setFinalScore([gamesWonByPlayer1, gamesWonByPlayer2]);
+  }, [matchWinnerIndexes]);
+
+  useEffect(() => {
     const getGameWinner = () => {
-      const gamesWonByPlayer1 = getNumberOfMatchesWon(0);
-      const gamesWonByPlayer2 = getNumberOfMatchesWon(1);
+      const winnerScore = Math.max(...finalScore);
+      const winnerIndex = finalScore.indexOf(winnerScore);
 
-      if (gamesWonByPlayer1 > gamesWonByPlayer2) players[0];
-
-      return players[1];
+      return players[winnerIndex];
     };
 
-    const winner = getGameWinner();
-    setGameWinner(winner);
-  }, [matchWinnerIndexes]);
+    if (finalScore.length) {
+      const winner = getGameWinner();
+      setGameWinner(winner);
+    }
+  }, [finalScore]);
 
   const getMatchWinner = (i) => {
     if (!players[matchWinnerIndexes.current[i]]) return '';
@@ -75,7 +74,7 @@ const Game = ({ game, players }) => {
           ))}
         </Timeline>
       </div>
-      <MatchScore score={[2, 1]} players={players} />
+      <MatchScore score={finalScore} players={players} />
       <Divider />
 
       {gameWinner && (
