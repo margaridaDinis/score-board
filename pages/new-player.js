@@ -26,7 +26,7 @@ function NewPlayer() {
     setLoading(true);
 
     try {
-      await api.post('/players', data);
+      await api.post('players', data);
       Alert.success(`New player ${name} created!`);
       setName('');
       setEmail('');

@@ -15,10 +15,13 @@ import {
   Alert,
 } from 'rsuite';
 import api from '../utils/api';
+import { useGet } from '../hooks/useGet';
 
 const INITIAL_VALUE = { numberOfMatches: 3, numberOfTries: 10 };
 
-function NewGame({ players }) {
+function NewGame({ initialPlayers }) {
+  const { data: players } = useGet('players', { initialData: initialPlayers });
+
   const [values, setValues] = useState(INITIAL_VALUE);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,7 @@ function NewGame({ players }) {
     setLoading(true);
 
     try {
-      const game = await api.post('/games', data);
+      const game = await api.post('games', data);
 
       Router.push(`/match/${game.data.id}/1`);
     } catch (error) {
@@ -145,13 +148,13 @@ function NewGame({ players }) {
 }
 
 export async function getStaticProps() {
-  const res = await api.get('/players');
+  const res = await api.get('players');
 
-  return { props: { players: res.data } };
+  return { props: { initialPlayers: res.data } };
 }
 
 NewGame.propTypes = {
-  players: PropTypes.array,
+  initialPlayers: PropTypes.array,
 };
 
 export default NewGame;

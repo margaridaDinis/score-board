@@ -1,10 +1,24 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import useSWR from 'swr';
 import { Icon, Timeline, Divider } from 'rsuite';
 import api from '../../utils/api';
 import MatchScore from '../../components/molecules/MatchScore';
 
-const Game = ({ game, players }) => {
+const fetchGame = async (id) => {
+  const res = await api.get(`games/${id}`);
+  const game = res.data;
+
+  return { game, players: [game.player1, game.player2] };
+};
+
+const Game = ({ id, ...props }) => {
+  const { data } = useSWR(`games/${id}`, () => fetchGame(id), {
+    initialData: props,
+  });
+
+  const { game, players } = data;
+
   if (!game) return null;
 
   const matchWinnerIndexes = useRef([]);
@@ -103,12 +117,11 @@ const Game = ({ game, players }) => {
 };
 
 Game.propTypes = {
-  game: PropTypes.object,
-  players: PropTypes.array,
+  id: PropTypes.string.isRequired,
 };
 
 export async function getStaticPaths() {
-  const res = await api.get('/games');
+  const res = await api.get('games');
   const games = res.data;
   const paths = games.map((post) => `/game/${post.id}`);
 
@@ -116,10 +129,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await api.get(`games/${params.id}`);
-  const game = res.data;
+  const props = await fetchGame(params.id);
 
-  return { props: { game, players: [game.player1, game.player2] } };
+  return { props: { id: params.id, ...props } };
 }
 
 export default Game;
