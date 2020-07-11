@@ -88,12 +88,12 @@ function MatchNumber() {
   };
 
   const setThrowResult = (result) => {
-    handleNextStep();
-
     setResults({
       ...results,
       [currentPlayerIndex]: [...results[currentPlayerIndex], result],
     });
+
+    handleNextStep();
   };
 
   return (
