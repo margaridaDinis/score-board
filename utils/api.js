@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://gamescorejordan.herokuapp.com/api',
+  baseURL: 'https://gamescorejordan.herokuapp.com/api/',
 });
 
 export default api;

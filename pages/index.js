@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { FlexboxGrid } from 'rsuite';
 import GameHistory from '../components/organisms/GameHistory';
 import api from '../utils/api';
+import { useGet } from '../hooks/useGet';
 
-function Home({ games }) {
+function Home({ initialGames }) {
+  const { data: games } = useGet('games', { initialData: initialGames });
+
   return (
     <div>
       <Head>
@@ -45,13 +48,13 @@ function Home({ games }) {
 }
 
 export async function getStaticProps() {
-  const res = await api.get('/games');
+  const res = await api.get('games');
 
-  return { props: { games: res.data } };
+  return { props: { initialGames: res.data } };
 }
 
 Home.propTypes = {
-  games: PropTypes.array,
+  initialGames: PropTypes.array,
 };
 
 export default Home;
